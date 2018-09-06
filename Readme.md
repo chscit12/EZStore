@@ -17,7 +17,7 @@ npm i --save EZStore
 ### import it
 
 ```
-import EZStore from 'ezstore' 
+import EZStore from 'ezstore'
 ```
 
 ### create a store
@@ -56,7 +56,7 @@ import EZStore from 'ezstore';
 const store = new EZStore({
     buttonRendered: false,
     timer: 5
-)}
+})
 
 // Create a button
 let myButton = document.createElement('button');
@@ -82,13 +82,13 @@ store.subscribe('timer', (value) => {
 
 // Init a counter that counts from 5 to 0
 const counter = setInterval(() => {
-    store.set('timer', (store.get('timer') -1 )
+    store.set('timer', (store.get('timer') -1 ))
 }, 1000)
 
 // Init a Timeout that displays a button after 5 seconds
 setTimeout(() => {
     store.set('timer', '');
-    store.set('buttonRendered': true);
+    store.set('buttonRendered', true);
 }, 5000)
 
 ```

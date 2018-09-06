@@ -39,7 +39,7 @@ class EZ_Store {
   **/
   get(key, value){
     if(!(typeof key === 'string') ||
-       !this._data.hasOwnProperty(key) return;
+       !this._data.hasOwnProperty(key)) return;
     return this._data[key];
   }
 
