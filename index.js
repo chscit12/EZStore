@@ -88,7 +88,7 @@ class EZ_Store {
       listener => {
         const keyName = Object.keys(listener)[0];
         if (keyName){
-          listener[keyName](that._data[keyName])]
+          listener[keyName](that._data[keyName])
         }
       }
     )
