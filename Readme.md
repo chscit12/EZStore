@@ -25,14 +25,14 @@ import EZStore from 'ezstore'
 ```
 const myStore = new EZStore(
   { buttonVisible: false,
-    isShiny: true
+    mySlogan: "Capture the world"
   }
 );
 ```
 
 ### listen to changes on store keys
 ```
-store.subscribe('myValue', (callBackValue) => {
+store.subscribe('mySlogan', (callBackValue) => {
     // Do whatever you want when myValue changes
     // You have access to the new value from the parameter of the callback function ( callBackValue )
 })
@@ -40,12 +40,12 @@ store.subscribe('myValue', (callBackValue) => {
 
 ### get the value of a key in the store
 ```
-store.get('myValue');
+store.get('mySlogan');
 ```
 
 ### set a new value to a key in the store
 ```
-store.set('myValue', 'cheesecake');
+store.set('buttonVisible', true);
 ```
 
 ## example snippet
