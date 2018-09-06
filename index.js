@@ -19,6 +19,7 @@ class EZ_Store {
       );
       return {};
     }
+    this.listeners = [];
     this._data = {...storeObject};
     return this;
   }
@@ -29,7 +30,7 @@ class EZ_Store {
   set(key, value){
     if(!(typeof key === 'string') ||
        !this._data.hasOwnProperty(key) ||
-      (value === this_data[key])) return;
+      (value === this._data[key])) return;
     this._data[key] = value
     this._dispatchChange(this._listeningOn(key))
   }

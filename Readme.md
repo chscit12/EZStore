@@ -87,6 +87,7 @@ const counter = setInterval(() => {
 
 // Init a Timeout that displays a button after 5 seconds
 setTimeout(() => {
+    clearInterval(counter);
     store.set('timer', '');
     store.set('buttonRendered', true);
 }, 5000)
