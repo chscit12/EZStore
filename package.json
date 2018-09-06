@@ -1,11 +1,8 @@
 {
   "name": "ezstore",
   "version": "0.0.1",
-  "description": "store implementation which allows to get set and subscribe to a global state",
+  "description": "simple store implementation which allows to get, set and subscribe to a global state",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "ES6",
     "store",
@@ -13,6 +10,6 @@
     "state",
     "statemanagement"
   ],
-  "author": "Chris Bergeer",
+  "author": "Chrioyles",
   "license": "ISC"
 }
