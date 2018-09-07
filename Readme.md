@@ -24,7 +24,8 @@ import EZStore from 'ezstore'
 
 ```javascript
 const myStore = new EZStore(
-  { buttonVisible: false,
+  { 
+    buttonVisible: false,
     mySlogan: "Capture the world"
   }
 );
@@ -33,7 +34,7 @@ const myStore = new EZStore(
 ### listen to changes on store keys
 ```javascript
 store.subscribe('mySlogan', (callBackValue) => {
-    // Do whatever you want when myValue changes
+    // Do whatever you want when mySlogan changes
     // You have access to the new value from the parameter of the callback function ( callBackValue )
 })
 ```

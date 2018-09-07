@@ -3,7 +3,7 @@
 * Date: 06.09.2018
 **/
 
-class EZ_Store {
+class EZStore {
   /**
   * PUBLIC FUNCTIONS
   **/
@@ -12,9 +12,9 @@ class EZ_Store {
   * Create the store while filling it with data
   **/
   constructor(storeObject){
-    if(!typeof storeObject === 'object'){
+    if(!(typeof storeObject === 'object')){
       console.warn(
-        'Error in module EZ_Store. Object passed to create function has to be' +
+        'Error in module EZStore. Object passed to constructor has to be' +
         'typeof Object.'
       );
       return {};
@@ -28,9 +28,11 @@ class EZ_Store {
   * Set a value to a key in the store. Key must match a key in the _data Object.
   **/
   set(key, value){
-    if(!(typeof key === 'string') ||
-       !this._data.hasOwnProperty(key) ||
-      (value === this._data[key])) return;
+    if(!(typeof key === 'string') || !this._data.hasOwnProperty(key){
+      console.warn('Error in module EZStore. '+
+      'The key passed to EZStore.set() is not found in the store');
+    }
+    if(value === this._data[key])) return;
     this._data[key] = value
     this._dispatchChange(this._listeningOn(key))
   }
@@ -38,10 +40,13 @@ class EZ_Store {
   /**
   * Get a value of a key in the store. Key must match a key in the _data Object.
   **/
-  get(key, value){
-    if(!(typeof key === 'string') ||
-       !this._data.hasOwnProperty(key)) return;
-    return this._data[key];
+  get(key){
+    if(!(typeof key === 'string') || !this._data.hasOwnProperty(key)){
+      console.warn('Error in module EZStore. '+
+      'The key passed to EZStore.get() is not found in the store');
+      return;
+    }
+    return Object.assign({}, {data: this._data[key]}).key;
   }
 
   /**
@@ -53,13 +58,20 @@ class EZ_Store {
       parameter => typeof parameter === 'function'
     )
     const cb = (functionsInParameter.length > 0) ? functionsInParameter[0] : null;
-    if(!cb) return;
+    if(!cb) {
+      console.warn('Error in module EZStore. '+
+      'Subscribe function did not receive a callback function');
+      return;
+    }
 
     const stringsInParameter = parameter.filter(
       parameter => typeof parameter === 'string'
     )
     const key = (stringsInParameter.length > 0) ? stringsInParameter[0] : null;
-    if(!key) return;
+    if(!key){
+       console.warn('Error in module EZStore. Subscribe function did not receive a key');
+       return;
+    };
 
     const listener = {};
     listener[key] = cb;
@@ -74,7 +86,7 @@ class EZ_Store {
   * Filters out all subscriber function to the key specified as a parameter.
   **/
   _listeningOn(key) {
-    if(!typeof key === 'string') return;
+    if(!(typeof key === 'string')) return;
     return this.listeners.filter(
       listener => listener.hasOwnProperty(key)
     )
@@ -96,4 +108,4 @@ class EZ_Store {
   }
 }
 
-export default EZ_Store;
+export default EZStore;
