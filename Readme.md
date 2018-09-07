@@ -16,13 +16,13 @@ npm i --save EZStore
 
 ### import it
 
-```
+```javascript
 import EZStore from 'ezstore'
 ```
 
 ### create a store
 
-```
+```javascript
 const myStore = new EZStore(
   { buttonVisible: false,
     mySlogan: "Capture the world"
@@ -31,7 +31,7 @@ const myStore = new EZStore(
 ```
 
 ### listen to changes on store keys
-```
+```javascript
 store.subscribe('mySlogan', (callBackValue) => {
     // Do whatever you want when myValue changes
     // You have access to the new value from the parameter of the callback function ( callBackValue )
@@ -39,18 +39,18 @@ store.subscribe('mySlogan', (callBackValue) => {
 ```
 
 ### get the value of a key in the store
-```
+```javascript
 store.get('mySlogan');
 ```
 
 ### set a new value to a key in the store
-```
+```javascript
 store.set('buttonVisible', true);
 ```
 
 ## example snippet
 
-```
+```javascript
 import EZStore from 'ezstore';
 // Create the store
 const store = new EZStore({
