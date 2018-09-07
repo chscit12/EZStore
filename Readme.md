@@ -4,7 +4,7 @@ EZStore is a Javascript library that offers an easy to use store module.
 
 ## how can i use it?
 ```
-npm i --save EZStore
+npm i --save ezstore
 ```
 
 ## what do i require?
@@ -24,7 +24,7 @@ import EZStore from 'ezstore'
 
 ```javascript
 const myStore = new EZStore(
-  { 
+  {
     buttonVisible: false,
     mySlogan: "Capture the world"
   }
