@@ -28,12 +28,12 @@ class EZStore {
   * Set a value to a key in the store. Key must match a key in the _data Object.
   **/
   set(key, value){
-    if(!(typeof key === 'string') || !this._data.hasOwnProperty(key){
+    if(!(typeof key === 'string') || !this._data.hasOwnProperty(key)){
       console.warn('Error in module EZStore. '+
       'The key passed to EZStore.set() is not found in the store');
     }
-    if(value === this._data[key])) return;
-    this._data[key] = value
+    if(value === this._data[key]) return;
+    this._data[key] = Object.assign({}, {value}).value;
     this._dispatchChange(this._listeningOn(key))
   }
 
@@ -46,7 +46,7 @@ class EZStore {
       'The key passed to EZStore.get() is not found in the store');
       return;
     }
-    return Object.assign({}, {data: this._data[key]}).key;
+    return Object.assign({}, {data: this._data[key]}).data;
   }
 
   /**
