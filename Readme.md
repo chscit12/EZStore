@@ -7,11 +7,6 @@ EZStore is a Javascript library that offers an easy to use store module.
 npm i --save ezstore
 ```
 
-## what do i require?
-
-* Ecmascript 6
-* Spread Operator Module
-
 ## how does it work?
 
 ### import it
