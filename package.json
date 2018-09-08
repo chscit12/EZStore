@@ -1,6 +1,6 @@
 {
   "name": "ezstore",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "simple store implementation which allows to get, set and subscribe to a global state",
   "main": "index.js",
   "scripts": {
