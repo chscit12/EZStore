@@ -18,9 +18,8 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
                 query: {
-                    presets: ['env', 'stage-3']
+                    presets: ['babel-preset-env', 'stage-3']
                 }
             }
         ]

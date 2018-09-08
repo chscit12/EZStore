@@ -14,14 +14,12 @@ class EZStore{
   constructor(storeObject){
     if(!(typeof storeObject === 'object')){
       console.warn(
-        'Error in module EZStore. Object passed to constructor has to be' +
+        'Error in module EZStore. Value passed to constructor has to be' +
         'typeof Object.'
       );
-      return {};
-    }
-    this.listeners = [];
+    };
+    this._listeners = [];
     this._data = {...storeObject};
-    return this;
   };
 
   /**
@@ -75,7 +73,7 @@ class EZStore{
 
     const listener = {};
     listener[key] = cb;
-    this.listeners.push(listener);
+    this._listeners.push(listener);
   };
 
   /**
@@ -87,7 +85,7 @@ class EZStore{
   **/
   _listeningOn(key){
     if(!(typeof key === 'string')) return;
-    return this.listeners.filter(
+    return this._listeners.filter(
       listener => listener.hasOwnProperty(key)
     );
   };
