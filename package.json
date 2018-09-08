@@ -2,14 +2,28 @@
   "name": "ezstore",
   "version": "0.2.2",
   "description": "simple store implementation which allows to get, set and subscribe to a global state",
-  "main": "index.js",
+  "main": "build/main.js",
+  "scripts": {
+    "webpack": "node_modules/.bin/webpack-cli"
+  },
   "keywords": [
     "ES6",
     "store",
     "dispatch",
     "state",
-    "statemanagement"
+    "statemanagement",
+    "events"
   ],
   "author": "Chrioyles",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chscit12/EZStore"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3"
+  }
 }
