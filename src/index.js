@@ -3,7 +3,7 @@
 * Date: 06.09.2018
 **/
 
-class EZStore{
+class EZStore {
   /**
   * PUBLIC FUNCTIONS
   **/
