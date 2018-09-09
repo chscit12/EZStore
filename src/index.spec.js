@@ -58,6 +58,9 @@ describe('Store', () => {
       }));
       return assert.lengthOf(store._listeners, 2);
     })
+    it('should increase the subscribe index by 1', () => {
+      return assert.equal(store._listeners[1].index, 1);
+    })
     it('should dispatch changes', () => {
       store.set('timer', 200);
       return assert.equal(testValue, 200);
