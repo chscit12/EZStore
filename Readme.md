@@ -44,6 +44,15 @@ store.get('mySlogan');
 store.set('buttonVisible', true);
 ```
 
+### unsubscribe
+```javascript
+const id = store.subscribe('mySlogan', (callBackValue) => {
+  console.log(callBackValue);
+})
+
+store.unsubscribe(id);
+```
+
 ## example snippet
 
 ```javascript
@@ -72,7 +81,7 @@ store.subscribe('buttonRendered', (value) => {
 })
 
 // Listen to timer changes in store
-store.subscribe('timer', (value) => {
+const timerSubscriptionId = store.subscribe('timer', (value) => {
     timer.innerHTML = value;
 })
 
@@ -85,6 +94,7 @@ const counter = setInterval(() => {
 setTimeout(() => {
     clearInterval(counter);
     store.set('timer', '');
+    store.unsubscribe(timerSubscriptionId);
     store.set('buttonRendered', true);
 }, 5000)
 

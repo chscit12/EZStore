@@ -4,8 +4,9 @@
   "description": "simple store implementation which allows to get, set and subscribe to a global state",
   "main": "index.js",
   "scripts": {
-    "compile": "./node_modules/.bin/babel --presets env,stage-0 -d ./ src/",
-    "prepublish": "npm run compile"
+    "compile": "./node_modules/.bin/babel --ignore spec.js --presets env,stage-0 -d ./ src/",
+    "prepublish": "npm run compile",
+    "test": "npm run compile && node_modules/.bin/mocha --require babel-core/register -R spec ./**/*.spec.js"
   },
   "keywords": [
     "ES6",
@@ -22,8 +23,11 @@
     "url": "https://github.com/chscit12/EZStore"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-0": "^6.24.1"
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
   }
 }

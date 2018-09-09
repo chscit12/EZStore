@@ -20,6 +20,7 @@ class EZStore {
     };
     this._listeners = [];
     this._data = {...storeObject};
+    this._subscribeIndex = 0;
   };
 
   /**
@@ -59,7 +60,7 @@ class EZStore {
     if(!cb) {
       console.warn('Error in module EZStore. '+
       'Subscribe function did not receive a callback function');
-      return;
+      return -1;
     };
 
     const stringsInParameter = parameter.filter(
@@ -68,13 +69,19 @@ class EZStore {
     const key = (stringsInParameter.length > 0) ? stringsInParameter[0] : null;
     if(!key){
        console.warn('Error in module EZStore. Subscribe function did not receive a key');
-       return;
+       return -1;
     };
 
     const listener = {};
     listener[key] = cb;
+    listener.index = this._subscribeIndex++;
     this._listeners.push(listener);
+    return listener.index;
   };
+
+  unsubscribe(index){
+    this._listeners = this._listeners.filter(listener => listener.index !== index);
+  }
 
   /**
   * PRIVATE FUNCTIONS
