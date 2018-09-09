@@ -71,7 +71,6 @@ class EZStore {
        console.warn('Error in module EZStore. Subscribe function did not receive a key');
        return -1;
     };
-
     const listener = {};
     listener[key] = cb;
     listener.index = this._subscribeIndex++;
@@ -79,7 +78,14 @@ class EZStore {
     return listener.index;
   };
 
+  /**
+  * Deletes a listener recognized by its subscriptionId/index.
+  **/
   unsubscribe(index){
+    if(!index || !(typeof index === 'number')){
+       console.warn('Error in module EZStore. Unsubscribe function expects a parameter of type number');
+       return -1;
+    };
     this._listeners = this._listeners.filter(listener => listener.index !== index);
   }
 
