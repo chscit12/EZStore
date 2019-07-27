@@ -1,5 +1,27 @@
 # EZStore Changelog
 
+## 1.0.0 -> 1.1.0
+
+It is possible to interact with deep objects now:
+
+```javascript
+const store = new EZStore({
+ deepObject: {
+   deeperObject: {
+     a: 1
+   }
+ }
+});
+
+const id = store.subscribe('deepObject.deeperObject.a', (callBackValue) => {
+  console.log("new Value: ", callBackValue);
+
+console.log(store.get('deepObject.deeperObject.a'));
+// 1
+store.set('deepObject.deeperObject.a', 2);
+// new Value: 2
+```
+
 ======
 ## 0.4.0 -> 0.5.0
 

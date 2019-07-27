@@ -31,8 +31,8 @@ class EZStore {
       console.warn('Error in module EZStore. '+
       'The key passed to EZStore.set() is not found in the store');
     }
-    if(value === this._data[key]) return;
-    this._data[key] = Object.assign({}, {value}).value;
+    if(value === this._getDeepObjectByString(this._data, key));
+    this._setDeepObjectByString(this._data, key,  value);
     this._dispatchChange(this._listeningOn(key));
   };
 
@@ -40,33 +40,25 @@ class EZStore {
   * Get a value of a key in the store. Key must match a key in the _data Object.
   **/
   get(key){
-    if(!(typeof key === 'string') || !this._data.hasOwnProperty(key)){
+    if(!(typeof key === 'string') ||
+      this._getDeepObjectByString(this._data, key) === undefined){
       console.warn('Error in module EZStore. '+
       'The key passed to EZStore.get() is not found in the store');
       return;
     };
-    return Object.assign({}, {data: this._data[key]}).data;
+    return Object.assign({}, {data: this._getDeepObjectByString(this._data, key)}).data;
   };
 
   /**
   * Subscribe to a key in the store. Triggers a change when the value of the key
   * changes
   **/
-  subscribe(...parameter){
-    const functionsInParameter = parameter.filter(
-      parameter => typeof parameter === 'function'
-    );
-    const cb = (functionsInParameter.length > 0) ? functionsInParameter[0] : null;
+  subscribe(key, cb){
     if(!cb) {
       console.warn('Error in module EZStore. '+
       'Subscribe function did not receive a callback function');
       return -1;
     };
-
-    const stringsInParameter = parameter.filter(
-      parameter => typeof parameter === 'string'
-    );
-    const key = (stringsInParameter.length > 0) ? stringsInParameter[0] : null;
     if(!key){
        console.warn('Error in module EZStore. Subscribe function did not receive a key');
        return -1;
@@ -93,6 +85,22 @@ class EZStore {
   * PRIVATE FUNCTIONS
   **/
 
+  _getDeepObjectByString(obj, string){
+    let i = 0;
+    const stringArr = string.split('.');
+    for (i = 0; i < stringArr.length - 1; i++)
+        obj = obj[stringArr[i]];
+    return obj[stringArr[i]];
+  }
+
+  _setDeepObjectByString(obj, string, value){
+    let i = 0;
+    const stringArr = string.split('.');
+    for (i = 0; i < stringArr.length - 1; i++)
+        obj = obj[stringArr[i]];
+    obj[stringArr[i]] = value;
+  }
+
   /**
   * Filters out all subscriber function to the key specified as a parameter.
   **/
@@ -112,7 +120,7 @@ class EZStore {
       listener => {
         const keyName = Object.keys(listener)[0];
         if (keyName){
-          listener[keyName](that._data[keyName]);
+          listener[keyName](that._getDeepObjectByString(that._data, keyName));
         }
       }
     );
