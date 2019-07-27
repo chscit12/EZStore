@@ -27,7 +27,9 @@ class EZStore {
   * Set a value to a key in the store. Key must match a key in the _data Object.
   **/
   set(key, value){
-    if(!(typeof key === 'string') || !this._data.hasOwnProperty(key)){
+    if(!(typeof key === 'string') ||
+      this._getDeepObjectByString(this._data, key) === undefined){
+
       console.warn('Error in module EZStore. '+
       'The key passed to EZStore.set() is not found in the store');
     }
@@ -42,6 +44,7 @@ class EZStore {
   get(key){
     if(!(typeof key === 'string') ||
       this._getDeepObjectByString(this._data, key) === undefined){
+
       console.warn('Error in module EZStore. '+
       'The key passed to EZStore.get() is not found in the store');
       return;
