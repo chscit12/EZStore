@@ -1,6 +1,6 @@
 # EZStore
 ## whats that?
-EZStore is a Javascript library that offers an easy to use store module.
+EZStore is an observable key value store implementation.
 
 ## how can i use it?
 ```

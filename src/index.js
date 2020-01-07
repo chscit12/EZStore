@@ -23,6 +23,10 @@ class EZStore {
     this._subscribeIndex = 0;
   };
 
+  keys(){
+    return Object.keys(this._data).filter(key => this._data.hasOwnProperty(key));
+  }
+
   /**
   * Set a value to a key in the store. Key must match a key in the _data Object.
   **/
@@ -33,7 +37,7 @@ class EZStore {
       console.warn('Error in module EZStore. '+
       'The key passed to EZStore.set() is not found in the store');
     }
-    if(value === this._getDeepObjectByString(this._data, key));
+    if(value === this._getDeepObjectByString(this._data, key)) return;
     this._setDeepObjectByString(this._data, key,  value);
     this._dispatchChange(this._listeningOn(key));
   };
@@ -56,7 +60,7 @@ class EZStore {
   * Subscribe to a key in the store. Triggers a change when the value of the key
   * changes
   **/
-  subscribe(key, cb){
+  subscribe(key, cb, once = false){
     if(!cb) {
       console.warn('Error in module EZStore. '+
       'Subscribe function did not receive a callback function');
@@ -69,6 +73,7 @@ class EZStore {
     const listener = {};
     listener[key] = cb;
     listener.index = this._subscribeIndex++;
+    listener.once = once;
     this._listeners.push(listener);
     return listener.index;
   };
@@ -77,10 +82,10 @@ class EZStore {
   * Deletes a listener recognized by its subscriptionId/index.
   **/
   unsubscribe(index){
-    if(!index || !(typeof index === 'number')){
+    if(index === undefined || index === null || !(typeof index === 'number')){
        console.warn('Error in module EZStore. Unsubscribe function expects a parameter of type number');
        return -1;
-    };
+    }
     this._listeners = this._listeners.filter(listener => listener.index !== index);
   }
 
@@ -109,13 +114,38 @@ class EZStore {
   **/
   _listeningOn(key){
     if(!(typeof key === 'string')) return;
-    return this._listeners.filter(
-      listener => listener.hasOwnProperty(key)
-    );
+
+    return this._keyChain(key).map(partialKey =>
+        this._listeners.filter(
+          listener => listener.hasOwnProperty(partialKey)
+      )
+    ).reduce((map, item) => map.concat(item),[]);
   };
 
   /**
+   * Get the parent key of a key
+   */
+
+  _parentKey(key){
+    return key
+        .split(".")
+        .reduce((parentKey, subKey, idx, arr) =>
+            parentKey + ((idx !== arr.length -1) ?`.${subKey}` : ""), "")
+        .replace(/^\./,"");
+  }
+
+  /**
+   * Creates a chain of keys like: 'key1.key2.key3' => ['key1.key2.key3', 'key1.key2', 'key1']
+   */
+  _keyChain(key, arr = []){
+    const parentKey = this._parentKey(key);
+    const newArray = [...arr, key];
+    return parentKey ? this._keyChain(parentKey, newArray) : newArray;
+  }
+
+  /**
   * Calls all functions of the listeners specified in the parameters.
+  * Clears all listeners that should execute only once.
   **/
   _dispatchChange(listeners){
     const that = this;
@@ -124,10 +154,11 @@ class EZStore {
         const keyName = Object.keys(listener)[0];
         if (keyName){
           listener[keyName](that._getDeepObjectByString(that._data, keyName));
+          if(listener.once) this.unsubscribe(listener.index);
         }
       }
     );
   };
-};
+}
 
 export default EZStore;

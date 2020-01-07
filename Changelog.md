@@ -1,5 +1,11 @@
 # EZStore Changelog
 
+## 1.1.0 -> 1.2.0
+
+* Setting the value of deep objects now triggers subscriptions of parent keys.
+* A bug has been fixed where a subscription index of 0 prevented from an unsubscription.
+* A new function store.keys() returns all top level keys.
+
 ## 1.0.0 -> 1.1.0
 
 It is possible to interact with deep objects now:

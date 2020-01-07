@@ -27,7 +27,7 @@ describe('Store', function () {
     it('should be created without crashing.', function () {
       return assert.isObject(store);
     });
-    it('should contain 2 parameters', function () {
+    it('should contain 3 parameters', function () {
       return assert.lengthOf(Object.keys(store._data), 3);
     });
     it('should contain a parameter that has been initialized in the constructor', function () {
@@ -35,6 +35,10 @@ describe('Store', function () {
     });
     it('should contain a parameter timer with value 5', function () {
       return assert.equal(store._data.timer, 5);
+    });
+    it('should return all keys with keys()', function () {
+      console.log(store.keys());
+      return assert.equal(JSON.stringify(store.keys()), JSON.stringify(["buttonRendered", "timer", "deepObject"]));
     });
   });
   /**
@@ -90,6 +94,15 @@ describe('Store', function () {
       }));
       store.set('timer', 200);
       return assert.equal(testValue, 200);
+    });
+    it('should dispatch changes on parent keys', function () {
+      subscribeIndexes.push(store.subscribe('deepObject.deeperObject', function (newValue) {
+        testValue = newValue;
+      }));
+      store.set('deepObject.deeperObject.a', "has been set");
+      return assert.equal(JSON.stringify(testValue), JSON.stringify({
+        a: "has been set"
+      }));
     });
     it('should be able to unsubscribe from a key', function () {
       subscribeIndexes.forEach(function (index) {

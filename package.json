@@ -1,7 +1,7 @@
 {
   "name": "ezstore",
-  "version": "1.1.1",
-  "description": "simple store implementation which allows to get, set and subscribe to a state object",
+  "version": "1.2.0",
+  "description": "observable key value store",
   "main": "index.js",
   "scripts": {
     "compile": "./node_modules/.bin/babel --ignore spec.js --presets=@babel/preset-env -d ./ src/",
@@ -14,6 +14,8 @@
     "dispatch",
     "state",
     "statemanagement",
+    "key/value",
+    "observable",
     "events"
   ],
   "author": "Chrioyles",
