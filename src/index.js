@@ -23,8 +23,18 @@ class EZStore {
     this._subscribeIndex = 0;
   };
 
+  /**
+   * Returns all registered keys of the store.
+   */
   keys(){
     return Object.keys(this._data).filter(key => this._data.hasOwnProperty(key));
+  }
+
+  /**
+   * Clears all listeners.
+   */
+  clearListeners(){
+    this._listeners = [];
   }
 
   /**
@@ -65,11 +75,11 @@ class EZStore {
       console.warn('Error in module EZStore. '+
       'Subscribe function did not receive a callback function');
       return -1;
-    };
+    }
     if(!key){
        console.warn('Error in module EZStore. Subscribe function did not receive a key');
        return -1;
-    };
+    }
     const listener = {};
     listener[key] = cb;
     listener.index = this._subscribeIndex++;

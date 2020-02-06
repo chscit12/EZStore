@@ -1,5 +1,9 @@
 # EZStore Changelog
 
+## 1.2.0 -> 1.3.0
+
+* New function ```javascriptstore.clearListeners()``` removes all subscriptions/listeners.
+
 ## 1.1.0 -> 1.2.0
 
 * Setting the value of deep objects now triggers subscriptions of parent keys.
