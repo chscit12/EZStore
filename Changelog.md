@@ -1,8 +1,28 @@
 # EZStore Changelog
 
+## 1.4.0 -> 1.5.0
+
+* New function `store.notifyListeners()` 
+informs for changes of the store. Useful for modifications 
+on the store that have been made without using store.set()
+
+* `store.keys()` returns the top-level keys of a store now as an object rather then an array.
+
+## 1.3.0 -> 1.4.0
+
+* New function 
+```javascript
+store.restoreDefault()
+``` 
+re-initializes the store with the default object passed to it.
+
 ## 1.2.0 -> 1.3.0
 
-* New function ```javascriptstore.clearListeners()``` removes all subscriptions/listeners.
+* New function 
+```javascript
+store.clearListeners()
+``` 
+removes all subscriptions/listeners.
 
 ## 1.1.0 -> 1.2.0
 

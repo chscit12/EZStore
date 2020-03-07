@@ -1,6 +1,6 @@
 {
   "name": "ezstore",
-  "version": "1.3.0",
+  "version": "1.5.0",
   "description": "observable key value store",
   "main": "index.js",
   "scripts": {

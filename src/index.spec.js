@@ -38,7 +38,12 @@ describe('Store', () => {
     it('should return all keys with keys()', () => {
       return assert.equal(
           JSON.stringify(store.keys()),
-          JSON.stringify(["buttonRendered","timer","deepObject"]));
+          JSON.stringify({
+            buttonRendered: "buttonRendered",
+            timer: "timer",
+            deepObject: "deepObject"
+          })
+      );
     })
   });
   /**
@@ -112,6 +117,14 @@ describe('Store', () => {
         store.unsubscribe(index);
       });
       return assert.lengthOf(store._listeners, 0);
+    });
+    it('should be able to notifyListeners', () => {
+      let hasBeenCalled = false;
+      store.subscribe(store.keys().timer, () => {
+        hasBeenCalled = true;
+      });
+      store.notifyListeners(store.keys().timer);
+      return assert.equal(hasBeenCalled, true);
     });
   })
 });

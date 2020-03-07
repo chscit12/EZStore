@@ -18,16 +18,31 @@ class EZStore {
         'typeof Object.'
       );
     };
+    this._defaultStore =  JSON.stringify(storeObject);
+
     this._listeners = [];
     this._data = {...storeObject};
     this._subscribeIndex = 0;
   };
 
   /**
-   * Returns all registered keys of the store.
+   * Returns all registered keys of the store as a an object with key values equal to the keys.
    */
   keys(){
-    return Object.keys(this._data).filter(key => this._data.hasOwnProperty(key));
+    return Object.keys(this._data)
+        .filter(key => this._data.hasOwnProperty(key))
+        .reduce((keys, key) => ({...keys, [key]: key}), {});
+  }
+
+  /**
+   * Restores the default store object
+   */
+  restoreDefault(){
+    try{
+      this._data = {...JSON.parse(this._defaultStore)}
+    } catch(e){
+      console.warn("Could not reset the store to default: ", e);
+    }
   }
 
   /**
@@ -87,6 +102,13 @@ class EZStore {
     this._listeners.push(listener);
     return listener.index;
   };
+
+  /**
+   * Trigger a dispatch of the store key.
+   **/
+  notifyListeners(key){
+    this._dispatchChange(this._listeningOn(key));
+  }
 
   /**
   * Deletes a listener recognized by its subscriptionId/index.
