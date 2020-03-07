@@ -1,6 +1,6 @@
 {
   "name": "ezstore",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "observable key value store",
   "main": "index.js",
   "scripts": {
@@ -25,10 +25,11 @@
     "url": "https://github.com/chscit12/EZStore"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.5.5",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/register": "^7.8.6",
     "chai": "^4.2.0",
     "mocha": "^5.2.0"
   }

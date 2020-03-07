@@ -7,13 +7,22 @@ let store = null;
 
 beforeEach(function() {
   store = new EZStore({
-   buttonRendered: false,
-   timer: 5,
-   deepObject: {
-     deeperObject: {
-       a: 1
+    data: {
+     buttonRendered: false,
+     timer: 5,
+     deepObject: {
+       deeperObject: {
+         a: 1
+       }
      }
-   }
+    },
+    events: {
+      changeTimer: function(value){store.set(store.keys().timer, value)},
+      changeThings: function(){
+        store.set(store.keys().buttonRendered, true);
+        store.set(store.keys().timer, 20);
+      }
+    }
   });
 });
 
@@ -126,5 +135,19 @@ describe('Store', () => {
       store.notifyListeners(store.keys().timer);
       return assert.equal(hasBeenCalled, true);
     });
-  })
+  });
+  /**
+   * Events
+   */
+  describe('Store:Events', () => {
+    it('should be able to fire event without crashing', () => {
+      store.dispatch({eventName: "changeTimer", payload: 100});
+      return assert.equal(store.get(store.keys().timer), 100);
+    });
+    it('should be able to change multiple values in event', () => {
+      store.dispatch({eventName: "changeThings"});
+      return assert.equal(store.get(store.keys().timer), 20) &&
+          assert.equal(store.get(store.keys().buttonRendered), true);
+    });
+  });
 });

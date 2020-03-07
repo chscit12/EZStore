@@ -11,17 +11,18 @@ class EZStore {
   /**
   * Create the store while filling it with data
   **/
-  constructor(storeObject){
-    if(!(typeof storeObject === 'object')){
+  constructor({data, events}){
+    if(!(typeof data === 'object')){
       console.warn(
         'Error in module EZStore. Value passed to constructor has to be' +
         'typeof Object.'
       );
-    };
-    this._defaultStore =  JSON.stringify(storeObject);
+    }
+    this._defaultStore =  JSON.stringify(data);
 
     this._listeners = [];
-    this._data = {...storeObject};
+    this._data = {...data};
+    this._events = {...events};
     this._subscribeIndex = 0;
   };
 
@@ -32,6 +33,24 @@ class EZStore {
     return Object.keys(this._data)
         .filter(key => this._data.hasOwnProperty(key))
         .reduce((keys, key) => ({...keys, [key]: key}), {});
+  }
+
+  /**
+   * Returns all registered event names of the store as a an object with key values equal to the keys.
+   */
+  eventNames(){
+    return Object.keys(this._events)
+        .filter(key => this._events.hasOwnProperty(key))
+        .reduce((keys, key) => ({...keys, [key]: key}), {});
+  }
+
+  /**
+   * Event dispatcher
+   */
+  dispatch({eventName, payload}){
+    if(this._events.hasOwnProperty(eventName)){
+      this._events[eventName](payload);
+    }
   }
 
   /**

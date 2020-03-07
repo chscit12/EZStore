@@ -1,5 +1,10 @@
 # EZStore Changelog
 
+## 1.5.0 -> 2.0.0
+
+* Introduced events
+* Store constructor is has changed from `const store = new EZStore({})` to: `store = new EZStore({data:{}, events:{}})`
+
 ## 1.4.0 -> 1.5.0
 
 * New function `store.notifyListeners()` 
