@@ -1,5 +1,9 @@
 # EZStore Changelog
 
+## 2.0.0 -> 2.0.1
+
+* Added warning if eventName in dispatch call is not defined or not registered.
+
 ## 1.5.0 -> 2.0.0
 
 * Introduced events

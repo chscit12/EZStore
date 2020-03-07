@@ -50,6 +50,8 @@ class EZStore {
   dispatch({eventName, payload}){
     if(this._events.hasOwnProperty(eventName)){
       this._events[eventName](payload);
+    } else {
+      console.warn("Event:", eventName, "is not a registered event in EZStore");
     }
   }
 
